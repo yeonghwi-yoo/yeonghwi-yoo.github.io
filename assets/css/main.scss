@@ -1,0 +1,24 @@
+---
+---
+
+@charset "utf-8";
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
+@import "minimal-mistakes";
+
+/* 기본 폰트 크기 조정 (테마 기본값 16/18/20/22px가 커서 한 단계 줄임) */
+html {
+  font-size: 14px;
+
+  @include breakpoint($medium) {
+    font-size: 15px;
+  }
+
+  @include breakpoint($large) {
+    font-size: 16px;
+  }
+
+  @include breakpoint($x-large) {
+    font-size: 16px;
+  }
+}
