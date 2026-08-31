@@ -91,6 +91,46 @@ import pandas as pd
 df = pd.read_csv('samsung_005930.csv', index_col=0, parse_dates=True)
 ```
 
+## 여러 종목을 한 번에 받아 합치기
+
+백테스트를 하다 보면 결국 여러 종목의 종가를 한 표에 모으게 됩니다. 반복문으로 받아서 열로 합치는 것이 기본 패턴입니다.
+
+```python
+import pandas as pd
+import time
+
+tickers = {'005930': '삼성전자', '000660': 'SK하이닉스', '035420': 'NAVER'}
+
+prices = {}
+for code, name in tickers.items():
+    prices[name] = fdr.DataReader(code, '2022-01-01')['Close']
+    time.sleep(0.5)  # 데이터 소스에 부담을 주지 않도록 간격을 둔다
+
+df_all = pd.DataFrame(prices)
+print(df_all.tail())
+```
+
+이렇게 만든 표는 날짜 인덱스가 자동으로 정렬·정합되지만, 종목마다 거래정지 등으로 빠진 날짜가 다를 수 있으므로 `df_all.isna().sum()`으로 결측을 확인하는 습관이 필요합니다.
+
+## 받은 데이터를 믿기 전에: 검증 습관 3가지
+
+다운로드가 성공했다고 데이터가 멀쩡하다는 보장은 없습니다. 저는 새 데이터를 받으면 반드시 이 세 가지를 봅니다.
+
+```python
+# 1. 기간과 개수가 상식적인가 (1년이면 거래일 약 245~250개)
+print(df.index.min(), df.index.max(), len(df))
+
+# 2. 값의 범위가 상식적인가 (0이나 음수 가격, 터무니없는 급등락)
+print(df['Close'].describe())
+print(df['Close'].pct_change().abs().nlargest(5))  # 최대 등락일 확인
+
+# 3. 결측과 중복이 없는가
+print(df.isna().sum())
+print(df.index.duplicated().sum())
+```
+
+2번에서 하루 ±30% 같은 값이 나오면 상한가·하한가(국내는 ±30%)일 수도 있지만 액면분할이 수정 반영되지 않은 것일 수도 있습니다. 날짜를 뉴스와 대조해 확인해야 합니다. 이 10분이 백테스트 전체를 살립니다.
+
 ## 간단한 차트 그리기
 
 받은 데이터로 종가 차트를 그려봅니다.
