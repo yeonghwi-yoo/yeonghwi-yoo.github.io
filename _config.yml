@@ -30,6 +30,12 @@ plugins:
 include:
   - _pages
 
+# 사이트에 노출하지 않을 파일
+exclude:
+  - CONTENT_PLAN.md
+  - README.md
+  - Gemfile
+
 # 작성자 프로필 (사이드바에 표시)
 author:
   name: "yeonghwi-yoo"
