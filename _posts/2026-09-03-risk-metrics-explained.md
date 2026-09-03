@@ -1,0 +1,160 @@
+---
+title: "퀀트 투자 입문 ⑧ — 위험 지표 완전 정복: 변동성, MDD, 샤프비율, 칼마비율"
+categories:
+  - 퀀트투자
+tags:
+  - 위험지표
+  - 샤프비율
+  - MDD
+---
+
+지금까지 전략 성과를 볼 때 CAGR과 MDD 두 가지만 썼습니다. 오늘은 이 도구함을 제대로 채웁니다. 수익률 하나만 보고 전략을 고르는 것은 자동차를 최고 속도만 보고 고르는 것과 같습니다. 브레이크와 안전벨트를 함께 봐야 합니다.
+
+## 변동성 — 얼마나 출렁이는가
+
+변동성(volatility)은 수익률의 **표준편차**입니다. 평균에서 얼마나 흩어져 있는지를 재는 값이고, 관례적으로 연 단위로 환산해서 씁니다.
+
+```python
+import numpy as np
+
+# 월별 수익률이라면 12, 일별이라면 252를 곱한다
+vol_annual = monthly_returns.std() * np.sqrt(12)
+```
+
+여기서 `np.sqrt`가 붙는 이유를 짚고 갑니다. 분산(표준편차의 제곱)은 기간에 비례해 커지므로, 표준편차는 **기간의 제곱근**에 비례합니다. 그래서 월별 변동성을 연율화할 때는 12가 아니라 √12를 곱합니다. 이 규칙을 모르면 변동성을 3.5배 과대평가하게 됩니다.
+
+변동성의 한계도 분명합니다. **위로 튀는 것과 아래로 빠지는 것을 똑같이 위험으로 취급**한다는 점입니다. 갑자기 +20% 오른 달과 -20% 빠진 달이 변동성에는 동일하게 기여합니다. 투자자에게 이 둘은 전혀 같지 않죠. 이 문제를 보완한 지표가 뒤에 나올 소르티노 비율입니다.
+
+## MDD와 회복 기간 — 얼마나 아팠고, 얼마나 오래 아팠는가
+
+MDD(최대 낙폭)는 앞에서 다뤘습니다. 전 고점 대비 가장 깊이 떨어진 폭입니다. 여기에 하나를 더 봐야 합니다. **회복 기간(time to recovery)**, 즉 전 고점을 되찾는 데 걸린 시간입니다.
+
+-30%까지 빠졌다가 6개월 만에 회복한 전략과, -25%까지 빠졌지만 4년간 회복하지 못한 전략이 있다면, 후자가 훨씬 견디기 어렵습니다. 사람이 전략을 포기하는 것은 낙폭의 깊이보다 **부진이 지속되는 시간** 때문인 경우가 많습니다.
+
+```python
+def drawdown_stats(cum):
+    """낙폭 시계열, MDD, 최장 침체 기간(개월)을 반환"""
+    peak = cum.cummax()
+    dd = cum / peak - 1
+
+    # 고점을 회복하지 못한 구간의 연속 길이 중 최댓값
+    under = dd < 0
+    longest, run = 0, 0
+    for flag in under:
+        run = run + 1 if flag else 0
+        longest = max(longest, run)
+
+    return dd, dd.min(), longest
+```
+
+## 샤프비율 — 위험 한 단위당 얼마를 벌었나
+
+샤프비율(Sharpe ratio)은 가장 널리 쓰이는 위험조정 수익률 지표입니다.
+
+```
+샤프비율 = (전략 수익률 - 무위험 수익률) / 변동성
+```
+
+"위험을 1만큼 감수해서 초과수익을 얼마나 얻었나"를 재는 값입니다. 연 10%를 변동성 20%로 번 전략보다, 연 8%를 변동성 10%로 번 전략이 더 효율적이라는 판단을 가능하게 해줍니다.
+
+```python
+def sharpe(returns, rf_annual=0.03, periods=12):
+    """rf_annual: 연 무위험수익률 가정치. 실제 값으로 교체할 것"""
+    rf_period = (1 + rf_annual) ** (1 / periods) - 1
+    excess = returns - rf_period
+    if excess.std() == 0:
+        return float('nan')
+    return excess.mean() / excess.std() * np.sqrt(periods)
+```
+
+해석의 대략적인 기준은 이렇습니다. 다만 자산군과 기간에 따라 통용되는 수준이 다르므로 절대적인 잣대로 쓰면 안 됩니다.
+
+| 샤프비율 | 통상적인 평가 |
+|---|---|
+| 1 미만 | 평범 |
+| 1 ~ 2 | 양호 |
+| 2 이상 | 매우 우수 — 다만 백테스트에서 나왔다면 오류를 먼저 의심 |
+
+마지막 줄이 중요합니다. 개인이 만든 백테스트에서 샤프 3이 나왔다면 축하할 일이 아니라 미래 참조나 비용 누락을 찾아야 할 일입니다.
+
+**샤프비율의 함정**도 알아둬야 합니다. 분모가 변동성이므로, 위로 크게 튄 달이 있으면 오히려 샤프비율이 나빠집니다. 또 수익률 분포가 정규분포에 가깝다는 가정을 깔고 있어서, 평소엔 잔잔하다가 가끔 크게 터지는 전략(옵션 매도 같은)은 실제 위험보다 좋아 보이게 됩니다.
+
+## 소르티노와 칼마 — 다른 각도에서 보기
+
+**소르티노 비율(Sortino ratio)**은 샤프비율의 분모를 "전체 변동성" 대신 **하락 변동성**으로 바꾼 것입니다. 손실 구간의 출렁임만 위험으로 셉니다.
+
+```python
+def sortino(returns, rf_annual=0.03, periods=12):
+    rf_period = (1 + rf_annual) ** (1 / periods) - 1
+    excess = returns - rf_period
+    downside = excess[excess < 0].std()
+    if downside == 0 or np.isnan(downside):
+        return float('nan')
+    return excess.mean() / downside * np.sqrt(periods)
+```
+
+**칼마 비율(Calmar ratio)**은 훨씬 직관적입니다. **CAGR을 MDD의 절댓값으로 나눈 값**으로, "내가 견뎌야 했던 최악의 고통 대비 얼마를 벌었나"를 뜻합니다. 칼마 0.5라면 최대 낙폭의 절반만큼을 매년 벌었다는 의미입니다.
+
+```python
+def calmar(cagr, mdd):
+    return cagr / abs(mdd) if mdd != 0 else float('nan')
+```
+
+실전 감각으로는 칼마 비율이 가장 와닿는 지표라고 생각합니다. 샤프비율은 통계적으로 정교하지만, 실제로 계좌를 들고 버티는 사람에게는 "얼마나 깊이 파였나" 대비 수익이 더 피부에 닿습니다.
+
+## 한 번에 계산하는 성과 요약 함수
+
+지금까지의 지표를 하나로 묶습니다. 앞으로 백테스트를 만들 때마다 이 함수를 재사용하면 됩니다.
+
+```python
+import pandas as pd
+import numpy as np
+
+def performance_summary(returns, rf_annual=0.03, periods=12):
+    r = returns.dropna()
+    cum = (1 + r).cumprod()
+    n_years = len(r) / periods
+
+    cagr = cum.iloc[-1] ** (1 / n_years) - 1
+    vol = r.std() * np.sqrt(periods)
+    dd, mdd, longest = drawdown_stats(cum)
+
+    return pd.Series({
+        'CAGR': cagr,
+        'Volatility': vol,
+        'MDD': mdd,
+        'Sharpe': sharpe(r, rf_annual, periods),
+        'Sortino': sortino(r, rf_annual, periods),
+        'Calmar': cagr / abs(mdd) if mdd != 0 else np.nan,
+        'Longest DD (기간)': longest,
+    })
+
+# 사용 예: 지난 글의 모멘텀 전략과 buy & hold 비교
+# summary = pd.DataFrame({
+#     'Buy & Hold': performance_summary(returns),
+#     'Momentum':   performance_summary(strategy_returns),
+# })
+# print(summary.round(3))
+```
+
+무위험 수익률(`rf_annual`)은 시기에 따라 달라지므로 기본값 3%는 어디까지나 가정치입니다. 비교하려는 기간의 실제 단기 국채나 예금 금리 수준으로 바꿔 넣으셔야 합니다.
+
+## 지표를 읽을 때의 원칙
+
+- **한 지표만 보지 않습니다.** CAGR만 보면 위험을 놓치고, 샤프만 보면 낙폭의 깊이를 놓칩니다. 최소한 CAGR, MDD, 샤프 세 개는 함께 봅니다.
+- **비교 대상과 나란히 놓습니다.** 샤프 0.8이 좋은지 나쁜지는 같은 기간 buy & hold의 샤프가 얼마였는지를 봐야 압니다.
+- **너무 좋은 숫자는 의심합니다.** 앞 글의 교훈이 여기서도 그대로 적용됩니다.
+- **가정치를 명시합니다.** 무위험 수익률, 연율화 기준(12/252), 거래 비용을 무엇으로 놓았는지 적어두지 않으면 나중에 자기 결과도 재현하지 못합니다.
+
+## 정리
+
+- 변동성은 √기간으로 연율화하며, 상승과 하락을 구분하지 못한다는 한계가 있다.
+- MDD는 깊이를, 회복 기간은 지속 시간을 재며 둘 다 봐야 한다.
+- 샤프는 위험 한 단위당 초과수익이고, 소르티노는 하락 위험만, 칼마는 최대 낙폭 대비 수익을 본다.
+- 지표는 항상 여러 개를 벤치마크와 나란히 놓고 읽는다.
+
+다음 글에서는 백테스트를 조용히 망가뜨리는 **미래 참조 편향(look-ahead bias)**을 본격적으로 해부합니다. `shift(1)`을 빼먹는 것 말고도 미래 정보가 새어 들어오는 경로가 여럿 있는데, 재무제표 발표 시차와 지수 편입 시점처럼 알아채기 어려운 사례를 중심으로 다루겠습니다.
+
+---
+
+*이 글은 학습과 정보 공유 목적으로 작성되었으며, 특정 종목이나 상품에 대한 투자 권유가 아닙니다. 투자의 판단과 책임은 투자자 본인에게 있습니다.*
