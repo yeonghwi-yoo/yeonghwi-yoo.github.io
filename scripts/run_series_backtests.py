@@ -32,7 +32,11 @@ def load_monthly(synthetic=False):
         return pd.Series(px, index=idx, name="KOSPI(synthetic)")
     import FinanceDataReader as fdr
     kospi = fdr.DataReader("KS11", "2005-01-01")["Close"]
-    return kospi.resample("ME").last().rename("KOSPI")
+    monthly = kospi.resample("ME").last().rename("KOSPI")
+    # 마지막 달이 아직 끝나지 않았으면(부분 데이터) 제외한다
+    if kospi.index[-1] < monthly.index[-1]:
+        monthly = monthly.iloc[:-1]
+    return monthly
 
 
 # ---------- 공통 함수 (⑧ 위험 지표) ----------
