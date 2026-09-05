@@ -16,7 +16,7 @@ permalink: /about/
 
 ## 연락처
 
-- 이메일: 준비 중입니다. 마련되는 대로 이 페이지에 안내하겠습니다.
+- 이메일: contact@quant-note.com
 
 ## 면책 조항
 
