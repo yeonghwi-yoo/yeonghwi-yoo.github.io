@@ -8,7 +8,7 @@ title: "퀀트 노트"
 subtitle: "데이터로 읽는 투자"
 name: "퀀트 노트"
 description: "퀀트 투자, 백테스트, 파이썬 데이터 분석을 기록하는 블로그입니다."
-url: "https://yeonghwi-yoo.github.io"
+url: "https://quant-note.com"
 repository: "yeonghwi-yoo/yeonghwi-yoo.github.io"
 timezone: Asia/Seoul
 
@@ -40,20 +40,12 @@ exclude:
 # 작성자 프로필 (사이드바에 표시)
 author:
   name: "퀀트 노트"
-  avatar: "https://github.com/yeonghwi-yoo.png"
   bio: "퀀트 투자와 데이터 분석을 공부하며 기록하는 익명 블로그입니다."
   location: "Seoul, Korea"
-  links:
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/yeonghwi-yoo"
 
-# 하단 푸터 링크
+# 하단 푸터 링크 (익명 운영을 위해 외부 계정 링크는 두지 않음)
 footer:
-  links:
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/yeonghwi-yoo"
+  links: []
 
 # 문서 유형별 기본값
 defaults:

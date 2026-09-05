@@ -48,7 +48,7 @@ tags:
 ### 수익화를 결정한 이후에 밟을 순서
 
 1. [ ] 글 20~30편 쌓기 (각 1,000자 이상, 검색해서 들어올 만한 주제)
-2. [ ] [Google 서치콘솔](https://search.google.com/search-console) 등록 + 사이트맵 제출 (`https://yeonghwi-yoo.github.io/sitemap.xml` — 자동 생성됨)
+2. [ ] [Google 서치콘솔](https://search.google.com/search-console) 등록 + 사이트맵 제출 (`https://quant-note.com/sitemap.xml` — 자동 생성됨)
 3. [ ] [네이버 서치어드바이저](https://searchadvisor.naver.com) 등록 (국내 유입)
 4. [ ] (권장) 커스텀 도메인 연결 — 승인율과 SEO에 유리
 5. [ ] **수익화 결정 완료** ← 아래 단계의 전제 조건

@@ -16,8 +16,7 @@ permalink: /about/
 
 ## 연락처
 
-- GitHub: [github.com/yeonghwi-yoo](https://github.com/yeonghwi-yoo)
-- 이메일: 준비 중입니다. 문의는 GitHub을 이용해 주세요.
+- 이메일: 준비 중입니다. 마련되는 대로 이 페이지에 안내하겠습니다.
 
 ## 면책 조항
 

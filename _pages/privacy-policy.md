@@ -4,7 +4,7 @@ permalink: /privacy-policy/
 author_profile: false
 ---
 
-본 블로그(퀀트 노트, https://yeonghwi-yoo.github.io)는 방문자의 개인정보를 소중히 여기며, 관련 법령을 준수합니다. 본 방침은 블로그에서 수집되는 정보와 그 이용 방식을 설명합니다.
+본 블로그(퀀트 노트, https://quant-note.com)는 방문자의 개인정보를 소중히 여기며, 관련 법령을 준수합니다. 본 방침은 블로그에서 수집되는 정보와 그 이용 방식을 설명합니다.
 
 ## 1. 수집하는 정보
 
@@ -35,7 +35,7 @@ author_profile: false
 
 ## 6. 문의
 
-개인정보처리방침에 대한 문의는 [GitHub](https://github.com/yeonghwi-yoo)을 통해 연락해 주시기 바랍니다.
+개인정보처리방침에 대한 문의 채널(이메일)은 준비 중이며, 마련되는 대로 본 페이지에 안내합니다.
 
 ## 7. 방침의 변경
 
