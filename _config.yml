@@ -35,6 +35,7 @@ exclude:
   - CONTENT_PLAN.md
   - README.md
   - Gemfile
+  - scripts
 
 # 작성자 프로필 (사이드바에 표시)
 author:
