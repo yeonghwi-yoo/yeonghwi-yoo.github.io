@@ -8,3 +8,4 @@ vendor/
 
 # 백테스트 스크립트 실행 결과물
 scripts/output/
+__pycache__/
