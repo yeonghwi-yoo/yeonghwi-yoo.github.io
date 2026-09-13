@@ -1,0 +1,32 @@
+---
+sitemap: false
+---
+<?xml version="1.0" encoding="UTF-8"?>
+{%- comment -%}
+  jekyll-sitemap 기본 템플릿을 대체하는 커스텀 사이트맵.
+  jekyll-paginate가 만드는 목록 페이지(/page2/, /page3/ ...)는 본문이 얇아 제외한다.
+  루트에 이 파일이 있으면 jekyll-sitemap은 자체 sitemap.xml을 생성하지 않는다.
+{%- endcomment %}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for post in site.posts %}
+  <url>
+    <loc>{{ post.url | absolute_url | xml_escape }}</loc>
+    <lastmod>{{ post.last_modified_at | default: post.date | date_to_xmlschema }}</lastmod>
+  </url>
+{%- endfor %}
+{%- assign pages = site.html_pages | where_exp: "p", "p.sitemap != false" %}
+{%- for p in pages %}
+  {%- assign u = p.url | replace: "/index.html", "/" %}
+  {%- comment -%} /page<숫자>/ 형태인지 판별 {%- endcomment %}
+  {%- assign tail = u | remove_first: "/page" | remove: "/" %}
+  {%- assign num = tail | plus: 0 %}
+  {%- assign back = num | append: "" %}
+  {%- assign is_pager = false %}
+  {%- if u contains "/page" and back == tail and num > 0 %}{%- assign is_pager = true %}{%- endif %}
+  {%- unless is_pager or u == "/404.html" %}
+  <url>
+    <loc>{{ u | absolute_url | xml_escape }}</loc>
+  </url>
+  {%- endunless %}
+{%- endfor %}
+</urlset>
