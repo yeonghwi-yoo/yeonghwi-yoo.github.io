@@ -20,16 +20,24 @@ OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 os.makedirs(OUT, exist_ok=True)
 
 
+def quiet():
+    """pykrx 는 KRX 로그인 시 아이디를 stdout 에 찍는다. 로그에 남지 않도록 호출을 감싼다."""
+    import contextlib
+    import io
+    return contextlib.redirect_stdout(io.StringIO())
+
+
 def fetch_snapshot(date: str, market: str = "KOSPI") -> pd.DataFrame:
     """특정 일자의 전 종목 펀더멘털 + 시가총액을 한 표로 합친다."""
     from pykrx import stock
 
     # 휴일이면 직전 영업일로 대체 (alternative=True)
-    fund = stock.get_market_fundamental_by_ticker(date, market=market, alternative=True)
-    time.sleep(1)                                    # 연속 호출 사이에 쉬어 준다
-    cap = stock.get_market_cap_by_ticker(date, market=market, alternative=True)
-    time.sleep(1)
-    names = pd.Series({t: stock.get_market_ticker_name(t) for t in fund.index}, name="종목명")
+    with quiet():
+        fund = stock.get_market_fundamental_by_ticker(date, market=market, alternative=True)
+        time.sleep(1)                                # 연속 호출 사이에 쉬어 준다
+        cap = stock.get_market_cap_by_ticker(date, market=market, alternative=True)
+        time.sleep(1)
+        names = pd.Series({t: stock.get_market_ticker_name(t) for t in fund.index}, name="종목명")
 
     df = fund.join(cap[["종가", "시가총액", "상장주식수"]], how="inner").join(names)
     df.index.name = "티커"
