@@ -33,6 +33,11 @@
 - 특정 종목·상품 추천이나 투자 권유로 읽힐 표현을 쓰지 않는다.
 - `_includes/head/custom.html`(애드센스 스크립트), 루트의 `ads.txt`와 `sitemap.xml`은 건드리지 않는다. 글만 추가한다.
 
+## 데이터 소스 메모
+
+- 한국 종목 재무·시가총액 스냅샷은 `scripts/krx_snapshot.py YYYYMMDD --market ALL` 로 실제 데이터를 받을 수 있다 (pykrx, 세션 환경변수 `KRX_ID`/`KRX_PW` 와 허용 도메인 `data.krx.co.kr` 설정됨, 2026-09-21 확인). 실전 시리즈 글은 가능하면 이 실제 데이터로 표와 차트를 만든다. 환경변수가 없으면 `--synthetic` 또는 공개 스냅샷으로 대체하고 글에 그 사실을 밝힌다.
+- 자격증명 값은 글·스크립트·로그 어디에도 적지 않는다. pykrx 호출은 `krx_snapshot.quiet()` 로 감싼다 (로그인 시 아이디가 stdout 에 찍힘).
+
 ## 파일 형식
 
 `_posts/YYYY-MM-DD-english-slug.md`
