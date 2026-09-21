@@ -7,6 +7,7 @@ pykrx 로 한국 상장 종목의 재무 스냅샷(PER/PBR/배당수익률 + 시
     python scripts/krx_snapshot.py 20260630
     python scripts/krx_snapshot.py 20260630 --market KOSDAQ
     python scripts/krx_snapshot.py --synthetic   # 접속 없이 파이프라인 동작만 확인
+    python scripts/krx_snapshot.py --file scripts/data/krx/snapshot_20260918.csv.gz   # 받아둔 원본으로
 
 결과: scripts/output/krx_snapshot_<date>_<market>.csv
 """
@@ -78,7 +79,7 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def main():
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    args = [a for a in sys.argv[1:] if a.isdigit()]
     synthetic = "--synthetic" in sys.argv
     market = "KOSPI"
     if "--market" in sys.argv:
@@ -86,6 +87,11 @@ def main():
 
     if synthetic:
         raw, date = synthetic_snapshot(), "synthetic"
+    elif "--file" in sys.argv:                       # 이미 받아둔 원본 스냅샷
+        path = sys.argv[sys.argv.index("--file") + 1]
+        raw = pd.read_csv(path, index_col=0, dtype={"티커": str})
+        date = os.path.basename(path).split("_")[-1].split(".")[0]
+        market = "ALL"
     else:
         if not args:
             sys.exit("사용법: python scripts/krx_snapshot.py YYYYMMDD [--market KOSPI|KOSDAQ|ALL]")
