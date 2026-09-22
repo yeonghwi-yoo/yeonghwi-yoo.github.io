@@ -103,9 +103,15 @@ def pick(df, metric, n, grouped, min_cap=MIN_CAP):
     return u.nlargest(n, "_score").index
 
 
-def period_return(tickers, r):
-    """동일비중 보유 수익률. 데이터가 없는 종목은 제외하고 개수를 함께 돌려준다."""
+def period_return(tickers, r, drop_delisted=False):
+    """동일비중 보유 수익률. 데이터가 없는 종목은 제외하고 개수를 함께 돌려준다.
+
+    상장폐지 종목은 등락률 -100 으로 들어 있다. drop_delisted=True 로 두면
+    그 종목을 아예 빼고 계산한다(= 살아남은 종목만 본다 = 생존 편향).
+    """
     s = r.reindex(tickers)
+    if drop_delisted:
+        s = s[s > -0.999]
     return float(s.mean()) if s.notna().any() else np.nan, int(s.isna().sum())
 
 
@@ -237,6 +243,30 @@ def main():
     log(f"  유니버스 누적    : {cum(tab['유니버스 동일비중']):+.1%}")
     keep = len(set(fixed) & set(pick(snaps[sorted(snaps)[-1]], METRICS["밸류3"], 20, False)))
     log(f"  처음 20종목 중 마지막 시점에도 상위 20에 남은 종목: {keep}개")
+    log()
+
+    # ----- 5. 상장폐지를 빼면 (생존 편향) -----
+    log("=" * 70)
+    log("5. 상장폐지 종목을 빼고 계산하면 (생존 편향의 크기)")
+    log("=" * 70)
+    with_d, without_d, n_delist = [], [], 0
+    for (a, b) in sorted(rets):
+        if a not in snaps:
+            continue
+        tick = pick(snaps[a], METRICS["밸류3"], 20, False)
+        r = rets[(a, b)]
+        with_d.append(period_return(tick, r)[0])
+        without_d.append(period_return(tick, r, drop_delisted=True)[0])
+        n_delist += int((r.reindex(tick) <= -0.999).sum())
+    uni_d = 0
+    for (a, b) in sorted(rets):
+        if a in snaps:
+            u = universe(snaps[a])
+            uni_d += int((rets[(a, b)].reindex(u.index) <= -0.999).sum())
+    log(f"  상폐 포함 누적 : {cum(with_d):+.1%}")
+    log(f"  상폐 제외 누적 : {cum(without_d):+.1%}")
+    log(f"  차이           : {cum(without_d) - cum(with_d):+.1%}p")
+    log(f"  선정 종목 중 상폐 건수: {n_delist}  (유니버스 전체 상폐 슬롯 {uni_d}건)")
     log()
 
     # ----- 차트 -----
