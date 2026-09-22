@@ -7,8 +7,10 @@ KRX 월간 수익률 수집 — 스냅샷 날짜 사이의 전 종목 등락률(
 
 저장: scripts/data/krx/returns_<from>_<to>.csv.gz
 스냅샷(snapshot_YYYYMMDD.csv.gz)이 있는 날짜들을 순서대로 이어 구간을 만든다.
-수정주가(adjusted=True)를 쓰므로 액면분할·무상증자가 가짜 수익률로 잡히지 않고,
-delist=True 라 구간 중 상장폐지된 종목도 남는다(생존 편향 점검용).
+수정주가(adjusted=True)를 쓰므로 액면분할·무상증자가 가짜 수익률로 잡히지 않는다.
+구간 중 상장폐지된 종목은 등락률 -100 으로 표에 남는다(생존 편향 점검용).
+주의: -100 은 "가치가 0이 되었다"는 가정이다. 실제로는 인수·합병이나 재상장인
+경우도 있어 손실을 과대평가할 수 있다.
 """
 import contextlib
 import glob
@@ -37,8 +39,10 @@ def snapshot_dates():
 def fetch_period(d0: str, d1: str) -> pd.DataFrame:
     from pykrx import stock
     with quiet():
+        # delist=True 는 상장폐지 종목"만" 돌려준다. False 로 두면 전 종목 표에
+        # 상장폐지 종목이 등락률 -100 으로 합쳐져 나온다(pykrx 내부에서 처리).
         df = stock.get_market_price_change_by_ticker(d0, d1, market="ALL",
-                                                     adjusted=True, delist=True)
+                                                     adjusted=True, delist=False)
     return df
 
 
