@@ -27,7 +27,12 @@ os.makedirs(OUT, exist_ok=True)
 
 
 def quiet():
-    """pykrx 는 로그인 시 아이디를 stdout 에 찍는다."""
+    """pykrx 는 로그인 시 아이디를 stdout 에 찍는다.
+
+    로그인은 import 시점에 일어나므로 import 자체도 이 안에서 해야 한다.
+    로그인이 실패하면 모듈이 sys.modules 에 남지 않아 다음 구간에서 다시
+    import(=재로그인)되므로, 매번 감싸는 편이 안전하다.
+    """
     return contextlib.redirect_stdout(io.StringIO())
 
 
@@ -37,8 +42,8 @@ def snapshot_dates():
 
 
 def fetch_period(d0: str, d1: str) -> pd.DataFrame:
-    from pykrx import stock
     with quiet():
+        from pykrx import stock
         # delist=True 는 상장폐지 종목"만" 돌려준다. False 로 두면 전 종목 표에
         # 상장폐지 종목이 등락률 -100 으로 합쳐져 나온다(pykrx 내부에서 처리).
         df = stock.get_market_price_change_by_ticker(d0, d1, market="ALL",
