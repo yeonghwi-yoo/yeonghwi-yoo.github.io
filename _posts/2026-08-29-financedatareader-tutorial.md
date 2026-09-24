@@ -8,7 +8,7 @@ tags:
   - 데이터수집
 ---
 
-퀀트 투자의 시작은 데이터입니다. 이번 글에서는 무료 오픈소스 라이브러리인 **FinanceDataReader**로 국내외 주가 데이터를 받아오는 방법을 정리합니다.
+퀀트 투자의 시작은 데이터입니다. 퀀트 투자가 무엇인지는 [이 글](/posts/what-is-quant-investing/)에 정리해 두었습니다. 이번 글에서는 무료 오픈소스 라이브러리인 **FinanceDataReader**로 국내외 주가 데이터를 받아오는 방법을 정리합니다.
 
 ## FinanceDataReader란
 
