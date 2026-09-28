@@ -1,6 +1,7 @@
 ---
 title: "퀀트 투자란? 뜻과 기본 전략 정리"
 date: 2026-08-29 12:00:00 +0900
+last_modified_at: 2026-09-28 13:40:00 +0900
 categories:
   - 퀀트투자
 tags:
@@ -46,7 +47,7 @@ tags:
 
 "그냥 S&P 500 인덱스 펀드 사서 묻어두면 되는 것 아닌가?"라는 질문이 나올 수 있습니다. 좋은 질문이고, 실제로 **인덱스 장기 투자도 훌륭한 규칙 기반 투자**입니다. "시장 전체를 사서, 팔지 않는다"는 규칙이니까요. 대부분의 사람에게는 이것만으로 충분하다는 것이 학계의 다수 의견이기도 합니다.
 
-퀀트 투자는 그 위에 질문을 얹는 것입니다. "시장 전체를 사되, 폭락장은 피할 수 없을까?"(절대 모멘텀), "시장 안에서 더 나은 종목군에 기울일 수 없을까?"(팩터 투자), "주식 말고 다른 자산과 섞으면 덜 흔들리지 않을까?"([자산 배분](/posts/asset-allocation-basics/)). 이 질문들이 실제로 효과가 있는지 데이터로 확인하는 과정이 이 시리즈에서 할 일입니다. 확인해 보고 "나에게는 인덱스 투자가 낫다"는 결론에 도달한다면 그것도 훌륭한 성과입니다.
+퀀트 투자는 그 위에 질문을 얹는 것입니다. "시장 전체를 사되, 폭락장은 피할 수 없을까?"(절대 모멘텀), "시장 안에서 더 나은 종목군의 비중을 높일 수 없을까?"(팩터 투자), "주식 말고 다른 자산과 섞으면 덜 흔들리지 않을까?"([자산 배분](/posts/asset-allocation-basics/)). 이 질문들이 실제로 효과가 있는지 데이터로 확인하는 과정이 이 시리즈에서 할 일입니다. 확인해 보고 "나에게는 인덱스 투자가 낫다"는 결론에 도달한다면 그것도 훌륭한 성과입니다.
 
 ## 대표적인 접근: 팩터 투자
 
@@ -59,7 +60,7 @@ tags:
 | [퀄리티(Quality)](/posts/quality-factor/) | 돈 잘 버는 회사가 결국 이긴다 | ROE, 부채비율 |
 | [저변동성(Low Vol)](/posts/low-volatility-factor/) | 덜 흔들리는 주식의 위험 대비 수익이 좋다 | 변동성, 베타 |
 
-표의 팩터 이름을 누르면 각각을 실제 데이터로 확인한 글로 갑니다.
+표의 팩터 이름을 누르면 각 팩터를 다룬 글로 갑니다.
 
 팩터 투자가 매력적인 이유는 **왜 통하는지에 대한 설명이 존재한다**는 점입니다. 예를 들어 밸류 팩터는 "투자자들이 인기 없는 주식을 과도하게 외면하기 때문"이라는 행동경제학적 설명과, "싼 주식에는 그만한 위험이 있고 그 위험을 감수한 보상"이라는 위험 프리미엄 설명이 모두 제시되어 있습니다. 설명이 있는 전략은 성과가 부진한 시기에도 계속 붙들고 갈 근거가 되고, 설명이 없는 전략은 데이터 마이닝의 산물일 가능성을 의심해야 합니다.
 
@@ -87,11 +88,11 @@ tags:
 
 **팩터** — [밸류](/posts/value-factor/) · [퀄리티](/posts/quality-factor/) · [저변동성](/posts/low-volatility-factor/) · [사이즈](/posts/size-factor/) · [멀티팩터](/posts/multifactor-portfolio/)
 
-**자산 배분** — [주식과 채권을 섞는 이유](/posts/asset-allocation-basics/) · [상관관계의 수학](/posts/correlation-and-diversification-math/) · [리밸런싱 효과](/posts/does-rebalancing-work/) · [올웨더](/posts/all-weather-portfolio/)
+**자산 배분** — [주식과 채권을 섞는 이유](/posts/asset-allocation-basics/) · [상관관계의 수학](/posts/correlation-and-diversification-math/) · [리밸런싱 효과](/posts/does-rebalancing-work/) · [듀얼 모멘텀](/posts/dual-momentum/) · [올웨더](/posts/all-weather-portfolio/)
 
 **백테스트의 함정** — [거래 비용](/posts/trading-costs-and-slippage/) · [과최적화](/posts/overfitting-in-backtesting/) · [미래 참조 편향](/posts/look-ahead-bias-faces/) · [생존 편향](/posts/survivorship-bias/) · [위험 지표](/posts/risk-metrics-explained/)
 
-**한국 종목으로 실전** — [pykrx로 재무 데이터](/posts/pykrx-fundamentals/) · [종목 스크리닝](/posts/stock-screener/) · [워크포워드 검증](/posts/walk-forward-validation/) · [몬테카를로](/posts/monte-carlo-validation/)
+**퀀트 실전** — [pykrx로 재무 데이터](/posts/pykrx-fundamentals/) · [종목 스크리닝](/posts/stock-screener/) · [워크포워드 검증](/posts/walk-forward-validation/) · [몬테카를로](/posts/monte-carlo-validation/) · [평균-분산 최적화](/posts/mean-variance-optimization/) · [리스크 패리티](/posts/risk-parity/) · [켈리 공식](/posts/kelly-criterion/)
 
 입문 시리즈 스무 편의 전체 목록과 한 줄 요약은 [입문 시리즈 정리](/posts/quant-intro-series-index/)에 있습니다. 처음 시작하신다면 기초 네 편을 순서대로 읽고, 그다음은 관심 가는 묶음부터 보셔도 됩니다.
 

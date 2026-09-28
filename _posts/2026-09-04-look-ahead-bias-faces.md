@@ -1,5 +1,6 @@
 ---
 title: "퀀트 투자 입문 ⑨ — 미래 참조 편향의 여러 얼굴"
+last_modified_at: 2026-09-28 13:40:00 +0900
 categories:
   - 퀀트투자
 tags:
@@ -33,13 +34,13 @@ strategy = position * monthly.pct_change()
 ```python
 import pandas as pd
 
-# fin: 결산 기준일을 인덱스로 하는 분기 재무 데이터 (예: PBR)
+# fin: 결산 기준일을 인덱스로 하는 분기 재무 데이터 (예: 순자산)
 # 보수적으로 결산일 + 90일부터 사용 가능하다고 가정
 fin = fin.copy()
 fin['available_from'] = fin.index + pd.DateOffset(days=90)
 
 # 각 매매 시점에 "그때까지 공개된 가장 최신 재무 데이터"를 붙인다
-prices_df = monthly.rename('close').reset_index().rename(columns={'index': 'date'})
+prices_df = monthly.rename('close').rename_axis('date').reset_index()
 fin_df = fin.sort_values('available_from')
 
 merged = pd.merge_asof(
@@ -65,7 +66,7 @@ merged = pd.merge_asof(
 
 수정주가(adjusted price)는 액면분할, 배당 등을 과거 가격에 소급 반영한 것입니다. 수익률 계산에는 이게 맞습니다. 그런데 수정주가에는 미묘한 함정이 있습니다.
 
-2018년 삼성전자가 50:1 액면분할을 했을 때, 수정주가 기준으로 2017년 가격은 약 5만 원대로 표시됩니다. 하지만 2017년에 실제로 거래된 가격은 250만 원대였습니다. "주가가 10만 원 이하인 종목만 산다" 같은 **가격 수준에 기반한 규칙**을 수정주가로 백테스트하면, 2017년의 삼성전자를 살 수 있었던 것으로 잘못 계산됩니다. 그 시점에는 분할이 있을지 아무도 몰랐는데 말이죠.
+2018년 삼성전자가 50:1 액면분할을 했을 때, 수정주가 기준으로 2017년 말 가격은 약 5만 원대로 표시됩니다. 하지만 당시 실제로 거래된 가격은 250만 원대였습니다. "주가가 10만 원 이하인 종목만 산다" 같은 **가격 수준에 기반한 규칙**을 수정주가로 백테스트하면, 2017년의 삼성전자를 살 수 있었던 것으로 잘못 계산됩니다. 그 시점에는 분할이 있을지 아무도 몰랐는데 말이죠.
 
 원칙은 이렇습니다. **수익률 계산은 수정주가로, 가격 수준·거래 단위 판단은 당시 실제 가격으로.** 둘을 구분해서 보관해야 합니다.
 
