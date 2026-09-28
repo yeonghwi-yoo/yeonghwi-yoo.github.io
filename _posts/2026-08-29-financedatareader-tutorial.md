@@ -1,5 +1,6 @@
 ---
 title: "파이썬으로 주가 데이터 받아오기 — FinanceDataReader 시작하기"
+date: 2026-08-29 18:00:00 +0900
 categories:
   - 파이썬
 tags:
