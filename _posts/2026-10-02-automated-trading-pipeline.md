@@ -1,5 +1,6 @@
 ---
 title: "퀀트 실전 ⑩ — 자동매매 파이프라인 만들기, 주문보다 안전장치가 먼저다"
+excerpt: "자동매매의 사고는 주문 함수보다 그 앞뒤에서 납니다. 코스피 200일선 규칙을 가상 계좌로 417번 실행해 보니, 처음에는 현금 버퍼와 정수 주 때문에 신호와 상관없는 주문이 생겼고, 하루 +17.9% 움직인 날에는 안전장치가 매수를 멈췄습니다."
 series: practice
 categories:
   - 퀀트투자
@@ -158,7 +159,7 @@ for day in close.loc["2025-01-01":].index:
 print(run_once(close.index[-1], close, broker, ledger))     # 같은 날 다시 돌리면?
 ```
 
-전체 스크립트는 `scripts/trading_pipeline.py`에 있습니다.
+전체 스크립트는 [trading_pipeline.py](/assets/code/trading_pipeline.py)에 있습니다. 다른 파일 없이 혼자 돌아가고, 시리즈의 다른 스크립트는 [코드](/code/) 페이지에 모아 두었습니다.
 
 몇 군데를 짚어 보면 이렇습니다.
 
@@ -205,7 +206,7 @@ print(run_once(close.index[-1], close, broker, ledger))     # 같은 날 다시 
 
 ## 실전 시리즈를 마치며
 
-실전 시리즈에서 한 일을 돌아보면, 수익을 늘리는 방법보다 **착각을 줄이는 방법**을 더 많이 다뤘습니다. [워크포워드](/posts/walk-forward-validation/)와 [몬테카를로](/posts/monte-carlo-validation/)로 운과 실력을 가르려 했고, [평균-분산](/posts/mean-variance-optimization/)과 [리스크 패리티](/posts/risk-parity/)로 비중을 정하는 법을 봤고, [켈리](/posts/kelly-criterion/)로 얼마나 걸지를, [추세추종](/posts/trend-following-stop-loss/)으로 언제 나올지를, [세금](/posts/taxes-and-trading-reality/)으로 무엇이 실제로 남는지를 봤습니다. 이번 글의 자동화도 같은 이야기입니다. 백테스트에서는 보이지 않던 정수 주, 현금 버퍼, 중복 실행, 극단적인 날이 실제로 돌리는 순간 드러납니다.
+실전 시리즈에서 한 일을 돌아보면, 수익을 늘리는 방법보다 **착각을 줄이는 방법**을 더 많이 다뤘습니다. [워크포워드](/posts/walk-forward-validation/)와 [몬테카를로](/posts/monte-carlo-validation/)로 운과 실력을 가르려 했고, [평균-분산](/posts/mean-variance-optimization/)과 [리스크 패리티](/posts/risk-parity/)로 비중을 정하는 법을 봤고, [켈리](/posts/kelly-criterion/)로 얼마나 걸지를, [추세추종](/posts/trend-following-stop-loss/)으로 언제 나올지를, [세금](/posts/taxes-and-trading-reality/)으로 무엇이 실제로 남는지를 봤습니다. 이번 글의 자동화도 같은 이야기입니다. 백테스트에서는 보이지 않던 정수 주, 현금 버퍼, 중복 실행, 극단적인 날이 실제로 돌리는 순간 드러납니다. 열 편의 핵심 결과와 다루지 못한 것은 [퀀트 실전, 10편 정리](/posts/quant-practice-series-index/)에 모아 두었습니다.
 
 전략은 백테스트에서 끝나지 않습니다. 실제 계좌에서 몇 년을 버티며 돌아갈 때 비로소 끝납니다.
 

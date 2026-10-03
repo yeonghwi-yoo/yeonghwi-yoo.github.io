@@ -1,5 +1,6 @@
 ---
 title: "퀀트 실전 ⑧ — 추세추종과 손절 규칙, 손절은 정말 손실을 줄일까"
+excerpt: "손절 규칙은 정말 손실을 줄일까요. 코스피 31.4년치에 200일 이동평균과 추적 손절을 돌려 보니, 추적 손절 10%의 MDD는 −76.3%로 매수 후 보유(−72.5%)보다 깊었고, 200일선의 CAGR 6.67%는 보유 6.60%와 거의 같았습니다."
 series: practice
 categories:
   - 퀀트투자
@@ -76,7 +77,7 @@ for name, pos in [('200일선', pos_ma(close)), ('손절 10%', pos_trailing(clos
     print(name, f'{cagr:.2%}')
 ```
 
-연환산은 거래일 수가 아니라 달력 햇수로 했습니다. 1998년까지는 토요일에도 장이 열려서, 1년을 250거래일로 치면 기간이 실제보다 길게 잡힙니다. 전체 스크립트는 `scripts/stop_loss.py`에 있습니다.
+연환산은 거래일 수가 아니라 달력 햇수로 했습니다. 1998년까지는 토요일에도 장이 열려서, 1년을 250거래일로 치면 기간이 실제보다 길게 잡힙니다. 전체 스크립트는 [stop_loss.py](/assets/code/stop_loss.py)에 있고, 다른 글의 스크립트는 [코드](/code/) 페이지에 모아 두었습니다.
 
 ## 31년 전체 결과
 
@@ -181,7 +182,12 @@ for name, pos in [('200일선', pos_ma(close)), ('손절 10%', pos_trailing(clos
 
 손절 규칙을 쓸 이유가 있다면, 수익률을 올려서가 아니라 **버틸 수 있게 해 줘서**일 겁니다. [위험 지표 글](/posts/risk-metrics-explained/)에서 말했듯이 MDD −72%를 실제로 견디는 사람은 드뭅니다. 그 대신 치르는 값이 박스권에서의 긴 부진이라는 것만 알고 고르면 됩니다.
 
-다음 글에서는 백테스트와 실제 계좌 사이에 남은 마지막 간극, **세금과 거래 현실**을 다룹니다.
+[다음 글](/posts/taxes-and-trading-reality/)에서는 백테스트와 실제 계좌 사이에 남은 마지막 간극, **세금과 거래 현실**을 다룹니다.
+
+## 참고 자료
+
+- Alexander, S. S. (1961). Price Movements in Speculative Markets: Trends or Random Walks. *Industrial Management Review*, 2(2).
+- Kaminski, K. M., & Lo, A. W. (2014). When do stop-loss rules stop losses? *Journal of Financial Markets*, 18.
 
 ---
 

@@ -83,6 +83,15 @@ monthly_returns = monthly.pct_change().dropna()
 print(monthly_returns.head())
 ```
 
+달이 끝나기 전에 데이터를 받았다면 하나를 더 확인해야 합니다. `resample('ME')`는 아직 끝나지 않은 달에도 월말 날짜를 붙여 마지막 행으로 내놓습니다. 그 행의 수익률은 한 달 치가 아니라 며칠 치입니다. 이 블로그의 입문 시리즈 백테스트 코드([run_series_backtests.py](/assets/code/run_series_backtests.py))는 월별 수익률을 계산하기 전에 이런 행을 버립니다.
+
+```python
+# 마지막 거래일이 마지막 월말 날짜보다 앞서면, 아직 끝나지 않은 달일 수 있으므로 버린다
+if df.index[-1] < monthly.index[-1]:
+    monthly = monthly.iloc[:-1]
+monthly_returns = monthly.pct_change().dropna()  # 잘라낸 뒤 월별 수익률을 다시 계산
+```
+
 받은 데이터를 매번 다시 내려받지 않으려면 CSV로 저장해 두는 것이 좋습니다. 데이터 소스에 부담도 줄이고, 나중에 같은 데이터로 재현할 수도 있습니다.
 
 ```python
@@ -178,6 +187,8 @@ plt.show()
 - 백테스트에 쓰기 전에 수정주가, 생존 편향 같은 데이터 품질 문제를 반드시 확인한다.
 
 다음 글에서는 백테스트의 바탕이 되는 [수익률 계산](/posts/return-calculation-basics/)을 정리합니다. 이 데이터로 가장 단순한 전략인 **모멘텀 전략의 백테스트**를 만드는 것은 [퀀트 투자 입문 ⑤](/posts/first-backtest-absolute-momentum/)에서 다룹니다.
+
+*2026-09-28 수정: 종료일은 두 번째가 아니라 세 번째 인자로 넘긴다고 바로잡고, 1년 거래일 수를 '약 245~250개'에서 '약 240~250개'로 고쳤습니다.*
 
 ---
 

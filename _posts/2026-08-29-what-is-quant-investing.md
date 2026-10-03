@@ -1,7 +1,6 @@
 ---
 title: "퀀트 투자란? 뜻과 기본 전략 정리"
 date: 2026-08-29 12:00:00 +0900
-last_modified_at: 2026-09-28 13:40:00 +0900
 series: intro
 categories:
   - 퀀트투자
@@ -95,7 +94,7 @@ tags:
 
 **퀀트 실전** — [pykrx로 재무 데이터](/posts/pykrx-fundamentals/) · [종목 스크리닝](/posts/stock-screener/) · [워크포워드 검증](/posts/walk-forward-validation/) · [몬테카를로](/posts/monte-carlo-validation/) · [평균-분산 최적화](/posts/mean-variance-optimization/) · [리스크 패리티](/posts/risk-parity/) · [켈리 공식](/posts/kelly-criterion/) · [추세추종과 손절](/posts/trend-following-stop-loss/) · [세금과 거래 현실](/posts/taxes-and-trading-reality/) · [자동매매 파이프라인](/posts/automated-trading-pipeline/)
 
-입문 시리즈 스무 편의 전체 목록과 한 줄 요약은 [입문 시리즈 정리](/posts/quant-intro-series-index/)에 있습니다. 처음 시작하신다면 기초 네 편을 순서대로 읽고, 그다음은 관심 가는 묶음부터 보셔도 됩니다.
+입문 시리즈 스무 편의 전체 목록과 한 줄 요약은 [입문 시리즈 정리](/posts/quant-intro-series-index/)에, 실전 시리즈 열 편은 [실전 시리즈 정리](/posts/quant-practice-series-index/)에 있습니다. 처음 시작하신다면 기초 네 편을 순서대로 읽고, 그다음은 관심 가는 묶음부터 보셔도 됩니다.
 
 ---
 

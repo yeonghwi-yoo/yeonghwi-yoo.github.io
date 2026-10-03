@@ -2,6 +2,7 @@
 title: "퀀트 투자 입문 ⑧ — 위험 지표 완전 정복: 변동성, MDD, 샤프비율, 칼마비율"
 last_modified_at: 2026-09-28 13:40:00 +0900
 series: intro
+excerpt: "변동성, MDD와 회복 기간, 샤프·소르티노·칼마 비율이 각각 무엇을 재는지 정리하고 코스피 절대 모멘텀에 적용했습니다. 샤프비율로는 0.21 대 0.39로 Buy & Hold에 졌지만 칼마 비율로는 0.171 대 0.199로 비슷해, 지표마다 결론이 달라집니다."
 categories:
   - 퀀트투자
 tags:
@@ -29,7 +30,7 @@ vol_annual = monthly_returns.std() * np.sqrt(12)
 
 ## MDD와 회복 기간 — 얼마나 아팠고, 얼마나 오래 아팠는가
 
-MDD(최대 낙폭)는 앞에서 다뤘습니다. 전 고점 대비 가장 깊이 떨어진 폭입니다. 여기에 하나를 더 봐야 합니다. **회복 기간(time to recovery)**, 즉 전 고점을 되찾는 데 걸린 시간입니다.
+MDD(최대 낙폭)는 [첫 백테스트 글](/posts/first-backtest-absolute-momentum/)에서 다뤘습니다. 전 고점 대비 가장 깊이 떨어진 폭입니다. 여기에 하나를 더 봐야 합니다. **회복 기간(time to recovery)**, 즉 전 고점을 되찾는 데 걸린 시간입니다.
 
 -30%까지 빠졌다가 6개월 만에 회복한 전략과, -25%까지 빠졌지만 4년간 회복하지 못한 전략이 있다면, 후자가 훨씬 견디기 어렵습니다. 사람이 전략을 포기하는 것은 낙폭의 깊이보다 **부진이 지속되는 시간** 때문인 경우가 많습니다.
 
@@ -131,7 +132,7 @@ def performance_summary(returns, rf_annual=0.03, periods=12):
         'Longest DD (기간)': longest,
     })
 
-# 사용 예: 지난 글의 모멘텀 전략과 buy & hold 비교
+# 사용 예: 첫 백테스트(입문 ⑤)의 모멘텀 전략과 buy & hold 비교
 # summary = pd.DataFrame({
 #     'Buy & Hold': performance_summary(returns),
 #     'Momentum':   performance_summary(strategy_returns),
@@ -143,7 +144,7 @@ def performance_summary(returns, rf_annual=0.03, periods=12):
 
 ## 실제 결과로 읽어보기
 
-위 함수를 지금까지의 코스피 절대 모멘텀 백테스트(2005년 1월~2026년 8월, 비용 0.3% 반영, 무위험수익률 3% 가정)에 적용한 결과입니다.
+위 함수를 지금까지의 코스피 절대 모멘텀 백테스트(2005년 1월~2026년 8월, 비용 0.3% 반영, 무위험수익률 3% 가정)에 적용한 결과입니다. 계산 코드는 [run_series_backtests.py](/assets/code/run_series_backtests.py)에 있습니다.
 
 | | Buy & Hold | 모멘텀 (비용 반영) |
 |---|---|---|
@@ -169,7 +170,7 @@ def performance_summary(returns, rf_annual=0.03, periods=12):
 
 - **한 지표만 보지 않습니다.** CAGR만 보면 위험을 놓치고, 샤프만 보면 낙폭의 깊이를 놓칩니다. 최소한 CAGR, MDD, 샤프 세 개는 함께 봅니다.
 - **비교 대상과 나란히 놓습니다.** 샤프 0.8이 좋은지 나쁜지는 같은 기간 buy & hold의 샤프가 얼마였는지를 봐야 압니다.
-- **너무 좋은 숫자는 의심합니다.** 앞 글의 교훈이 여기서도 그대로 적용됩니다.
+- **너무 좋은 숫자는 의심합니다.** [앞 글](/posts/overfitting-in-backtesting/)의 교훈이 여기서도 그대로 적용됩니다.
 - **가정치를 명시합니다.** 무위험 수익률, 연율화 기준(12/252), 거래 비용을 무엇으로 놓았는지 적어두지 않으면 나중에 자기 결과도 재현하지 못합니다.
 
 ## 정리
@@ -179,7 +180,14 @@ def performance_summary(returns, rf_annual=0.03, periods=12):
 - 샤프는 위험 한 단위당 초과수익이고, 소르티노는 하락 위험만, 칼마는 최대 낙폭 대비 수익을 본다.
 - 지표는 항상 여러 개를 벤치마크와 나란히 놓고 읽는다.
 
-다음 글에서는 백테스트를 조용히 망가뜨리는 **미래 참조 편향(look-ahead bias)**을 본격적으로 해부합니다. `shift(1)`을 빼먹는 것 말고도 미래 정보가 새어 들어오는 경로가 여럿 있는데, 재무제표 발표 시차와 지수 편입 시점처럼 알아채기 어려운 사례를 중심으로 다루겠습니다.
+[다음 글](/posts/look-ahead-bias-faces/)에서는 백테스트를 조용히 망가뜨리는 **미래 참조 편향(look-ahead bias)**을 본격적으로 해부합니다. `shift(1)`을 빼먹는 것 말고도 미래 정보가 새어 들어오는 경로가 여럿 있는데, 재무제표 발표 시차와 지수 편입 시점처럼 알아채기 어려운 사례를 중심으로 다루겠습니다.
+
+*2026-09-28 수정: 변동성 연율화 코드 주석을 "12를 곱한다"에서 "√12를 곱한다"로 고치고, 위로 튄 달이 샤프비율을 나쁘게 만든다고 쓴 문장과 칼마 0.5의 해석 문장을 바로잡았습니다.*
+
+## 참고 자료
+
+- Sharpe, W. F. (1966). Mutual Fund Performance. Journal of Business, 39(1).
+- Sortino, F. A., & Price, L. N. (1994). Performance Measurement in a Downside Risk Framework. Journal of Investing, 3(3).
 
 ---
 
