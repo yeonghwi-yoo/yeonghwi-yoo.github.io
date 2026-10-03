@@ -1,6 +1,7 @@
 ---
 title: "퀀트 실전 ⑤ — 평균-분산 최적화, 가장 유명한 공식이 실전에서 지는 이유"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: practice
 categories:
   - 퀀트투자
 tags:

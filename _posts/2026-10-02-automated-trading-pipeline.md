@@ -1,5 +1,6 @@
 ---
 title: "퀀트 실전 ⑩ — 자동매매 파이프라인 만들기, 주문보다 안전장치가 먼저다"
+series: practice
 categories:
   - 퀀트투자
 tags:

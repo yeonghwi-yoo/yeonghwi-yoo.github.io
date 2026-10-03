@@ -1,6 +1,7 @@
 ---
 title: "퀀트 실전 ② — 종목 스크리닝 시스템 만들기"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: practice
 categories:
   - 퀀트투자
 tags:

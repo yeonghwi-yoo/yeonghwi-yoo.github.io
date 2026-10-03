@@ -1,5 +1,6 @@
 ---
 title: "퀀트 실전, 10편 정리"
+series: practice
 categories:
   - 퀀트투자
 tags:

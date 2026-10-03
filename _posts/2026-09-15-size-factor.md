@@ -1,6 +1,7 @@
 ---
 title: "퀀트 투자 입문 ⑰ — 사이즈 팩터, 소형주 효과는 살아 있나"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: intro
 categories:
   - 퀀트투자
 tags:

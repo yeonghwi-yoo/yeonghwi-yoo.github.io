@@ -1,6 +1,7 @@
 ---
 title: "퀀트 투자 입문 ⑥ — 거래 비용과 슬리피지, 백테스트에 현실 넣기"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: intro
 categories:
   - 퀀트투자
 tags:

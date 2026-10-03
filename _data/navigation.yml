@@ -1,9 +1,13 @@
 main:
-  - title: "홈"
-    url: /
-  - title: "글 목록"
+  - title: "입문 시리즈"
+    url: /posts/quant-intro-series-index/
+  - title: "실전 시리즈"
+    url: /posts/quant-practice-series-index/
+  - title: "전체 글"
     url: /posts/
+  - title: "코드"
+    url: /code/
   - title: "소개"
     url: /about/
-  - title: "개인정보처리방침"
-    url: /privacy-policy/
+  - title: "문의"
+    url: /contact/

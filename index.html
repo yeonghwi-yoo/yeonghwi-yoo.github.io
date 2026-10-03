@@ -1,4 +1,29 @@
 ---
 layout: home
+title: "공개 데이터로 직접 검증하는 퀀트 투자"
+description: "퀀트 노트는 자주 듣는 퀀트 전략을 코스피·KRX·파마-프렌치·실러 같은 공개 데이터와 파이썬 코드로 다시 돌려 보는 블로그입니다. 거래비용, 세금, 과최적화까지 따지고 결과를 그대로 싣습니다."
 author_profile: true
 ---
+{% if paginator == nil or paginator.page == 1 %}
+<p>퀀트 노트는 자주 듣는 퀀트 전략을 공개 데이터와 파이썬 코드로 다시 돌려 보는 블로그입니다. 모멘텀, 팩터, 자산 배분 같은 아이디어를 코스피 지수, 한국거래소(KRX) 종목 데이터, 파마-프렌치 팩터, 실러의 미국 주식 데이터로 직접 검증합니다. 거래비용, 세금, 생존 편향, 과최적화까지 따지고, 기대와 다르게 나온 결과도 그대로 싣습니다.</p>
+
+<h2>처음 오셨다면</h2>
+<ul>
+  <li><a href="/posts/what-is-quant-investing/">퀀트 투자란? 뜻과 기본 전략 정리</a> — 이 블로그가 다루는 주제 전체의 지도</li>
+  <li><a href="/posts/quant-intro-series-index/">퀀트 투자 입문 20편 정리</a> — 수익률 계산부터 백테스트의 함정, 팩터, 자산 배분까지</li>
+  <li><a href="/posts/quant-practice-series-index/">퀀트 실전 10편 정리</a> — 한국 종목 데이터, 검증, 비중, 세금, 자동매매</li>
+  <li><a href="/posts/first-backtest-absolute-momentum/">첫 백테스트: 절대 모멘텀</a> — 코스피로 직접 돌려 보는 가장 단순한 전략</li>
+</ul>
+
+<h2>데이터로 확인한 것들</h2>
+<ul>
+  <li><a href="/posts/multifactor-portfolio/">멀티팩터</a> — 다섯 팩터를 똑같이 섞자 샤프비율이 0.55에서 0.89로 올랐고, 최적화한 비중은 균등 비중에 졌습니다.</li>
+  <li><a href="/posts/walk-forward-validation/">워크포워드 검증</a> — 과거 월평균 3.33%였던 설정이 다음 달에 실제로 준 것은 1.33%였습니다.</li>
+  <li><a href="/posts/all-weather-portfolio/">올웨더 포트폴리오</a> — 주식 60%·채권 40% 포트폴리오에서 위험의 87%는 주식에서 나옵니다.</li>
+  <li><a href="/posts/kelly-criterion/">켈리 공식</a> — 과거 10년으로 추정한 켈리 배수를 따랐다면 1998년에 계좌가 바닥났습니다.</li>
+  <li><a href="/posts/trend-following-stop-loss/">추세추종과 손절</a> — 10% 손절 규칙의 최대 낙폭(−76%)이 그냥 들고 있을 때(−72%)보다 깊었습니다.</li>
+  <li><a href="/posts/taxes-and-trading-reality/">세금과 거래 현실</a> — 같은 S&amp;P 500도 상품과 계좌에 따라 세금으로 깎이는 폭이 연 0.3%p에서 2.3%p까지 달랐습니다.</li>
+</ul>
+
+<p>글마다 데이터 출처와 기간, 가정을 밝히고, 결과를 낸 <a href="/code/">파이썬 코드</a>를 공개합니다. 틀린 내용을 고치면 <a href="/changelog/">수정 기록</a>에 남깁니다. 블로그가 어떤 원칙으로 운영되는지는 <a href="/about/">소개</a>에, 전체 글은 <a href="/posts/">글 목록</a>에 있습니다.</p>
+{% endif %}

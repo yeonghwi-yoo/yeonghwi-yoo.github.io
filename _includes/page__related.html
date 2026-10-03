@@ -1,0 +1,54 @@
+{% comment %}
+  테마의 page__related.html 을 덮어쓴다.
+  GitHub Pages 에서 site.related_posts 는 단순히 최신 글 10편이라 모든 글에 같은 추천이 붙는다.
+  대신 (1) front matter 의 read_next(URL 목록), (2) 같은 시리즈의 앞뒤 글과 정리 글,
+  (3) 시리즈 정리 글과 허브 글로 세 편까지 채운다.
+{% endcomment %}
+{% assign rel = "" | split: "" %}
+{% assign intro_index = site.posts | where: "url", "/posts/quant-intro-series-index/" | first %}
+{% assign practice_index = site.posts | where: "url", "/posts/quant-practice-series-index/" | first %}
+
+{% if page.read_next %}
+  {% for u in page.read_next %}
+    {% assign p = site.posts | where: "url", u | first %}
+    {% if p %}{% assign rel = rel | push: p %}{% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if rel.size == 0 and page.series %}
+  {% assign s = site.posts | where: "series", page.series | reverse %}
+  {% assign idx = -1 %}
+  {% for p in s %}{% if p.url == page.url %}{% assign idx = forloop.index0 %}{% endif %}{% endfor %}
+  {% if idx > 0 %}{% assign prev_i = idx | minus: 1 %}{% assign rel = rel | push: s[prev_i] %}{% endif %}
+  {% assign next_i = idx | plus: 1 %}
+  {% if idx >= 0 and next_i < s.size %}{% assign rel = rel | push: s[next_i] %}{% endif %}
+  {% if page.series == "intro" %}{% assign home = intro_index %}{% elsif page.series == "practice" %}{% assign home = practice_index %}{% endif %}
+  {% if home and home.url != page.url %}
+    {% assign dup = rel | where: "url", home.url %}
+    {% if dup.size == 0 %}{% assign rel = rel | push: home %}{% endif %}
+  {% endif %}
+{% endif %}
+
+{% assign hub = site.posts | where: "url", "/posts/what-is-quant-investing/" | first %}
+{% assign hubs = "" | split: "" %}
+{% if intro_index %}{% assign hubs = hubs | push: intro_index %}{% endif %}
+{% if practice_index %}{% assign hubs = hubs | push: practice_index %}{% endif %}
+{% if hub %}{% assign hubs = hubs | push: hub %}{% endif %}
+{% for cand in hubs %}
+  {% if rel.size >= 3 %}{% break %}{% endif %}
+  {% if cand.url == page.url %}{% continue %}{% endif %}
+  {% assign dup = rel | where: "url", cand.url %}
+  {% if dup.size == 0 %}{% assign rel = rel | push: cand %}{% endif %}
+{% endfor %}
+
+{% if rel.size > 0 %}
+<div class="page__related">
+  {% include before-related.html %}
+  <h2 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy" }}</h2>
+  <div class="grid__wrapper">
+    {% for post in rel limit:4 %}
+      {% include archive-single.html type="grid" %}
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

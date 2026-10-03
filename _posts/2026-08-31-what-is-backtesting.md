@@ -2,6 +2,7 @@
 title: "퀀트 투자 입문 ③ — 백테스트란 무엇인가"
 date: 2026-08-31 09:00:00 +0900
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: intro
 categories:
   - 퀀트투자
 tags:

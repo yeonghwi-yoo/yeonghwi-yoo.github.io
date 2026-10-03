@@ -2,6 +2,7 @@
 title: "퀀트 투자란? 뜻과 기본 전략 정리"
 date: 2026-08-29 12:00:00 +0900
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: intro
 categories:
   - 퀀트투자
 tags:

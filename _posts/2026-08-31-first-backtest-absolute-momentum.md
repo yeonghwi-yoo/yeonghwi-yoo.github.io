@@ -2,6 +2,7 @@
 title: "퀀트 투자 입문 ⑤ — 첫 백테스트: 절대 모멘텀을 코드 30줄로"
 date: 2026-08-31 18:00:00 +0900
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: intro
 categories:
   - 퀀트투자
 tags:

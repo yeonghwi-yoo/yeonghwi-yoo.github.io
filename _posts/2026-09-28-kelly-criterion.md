@@ -1,5 +1,6 @@
 ---
 title: "퀀트 실전 ⑦ — 켈리 공식, 수학이 알려주는 최적 베팅과 그대로 따르면 파산하는 이유"
+series: practice
 categories:
   - 퀀트투자
 tags:

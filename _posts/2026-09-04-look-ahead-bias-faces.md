@@ -1,6 +1,7 @@
 ---
 title: "퀀트 투자 입문 ⑨ — 미래 참조 편향의 여러 얼굴"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: intro
 categories:
   - 퀀트투자
 tags:

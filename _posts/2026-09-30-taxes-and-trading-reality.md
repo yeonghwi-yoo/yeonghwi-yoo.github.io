@@ -1,5 +1,6 @@
 ---
 title: "퀀트 실전 ⑨ — 세금과 거래 현실, 같은 전략도 계좌에 따라 결과가 다르다"
+series: practice
 categories:
   - 퀀트투자
 tags:

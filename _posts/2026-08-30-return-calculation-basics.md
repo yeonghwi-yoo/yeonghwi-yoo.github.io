@@ -1,6 +1,7 @@
 ---
 title: "퀀트 투자 입문 ② — 수익률 계산, 제대로 알고 시작하기"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: intro
 categories:
   - 퀀트투자
 tags:

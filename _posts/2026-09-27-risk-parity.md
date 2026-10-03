@@ -1,6 +1,7 @@
 ---
 title: "퀀트 실전 ⑥ — 리스크 패리티, 기대수익 없이 위험만으로 나누기"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: practice
 categories:
   - 퀀트투자
 tags:

@@ -1,0 +1,23 @@
+{% comment %}
+  테마(minimal-mistakes 4.26.2)의 author-profile.html 을 덮어쓴다.
+  익명 블로그라 소셜 링크·위치를 담는 "팔로우" 영역을 없애고,
+  대신 사이트가 무엇을 하는지와 주요 페이지 링크를 보여 준다.
+{% endcomment %}
+{% assign author = page.author | default: page.authors[0] | default: site.author %}
+{% assign author = site.data.authors[author] | default: author %}
+
+<div class="h-card">
+  <div class="author__content">
+    <h3 class="author__name p-name">
+      <a class="u-url" href="{{ '/' | absolute_url }}">{{ author.name }}</a>
+    </h3>
+    <div class="author__bio p-note">
+      <p>공개 데이터와 파이썬 코드로 퀀트 투자 전략을 직접 검증합니다. 데이터 출처와 가정을 함께 밝힙니다.</p>
+      <p>
+        <a href="{{ '/posts/quant-intro-series-index/' | relative_url }}">입문 시리즈</a> ·
+        <a href="{{ '/posts/quant-practice-series-index/' | relative_url }}">실전 시리즈</a> ·
+        <a href="{{ '/posts/' | relative_url }}">전체 글</a>
+      </p>
+    </div>
+  </div>
+</div>

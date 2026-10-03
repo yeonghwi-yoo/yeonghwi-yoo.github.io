@@ -1,6 +1,7 @@
 ---
 title: "퀀트 실전 ④ — 몬테카를로로 재보기, 그 수익률이 운이었을 확률"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: practice
 categories:
   - 퀀트투자
 tags:

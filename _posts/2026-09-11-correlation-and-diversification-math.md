@@ -1,6 +1,7 @@
 ---
 title: "퀀트 투자 입문 ⑬ — 상관관계와 분산투자의 수학"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: intro
 categories:
   - 퀀트투자
 tags:

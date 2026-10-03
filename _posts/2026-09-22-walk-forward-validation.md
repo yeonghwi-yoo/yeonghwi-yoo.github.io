@@ -1,6 +1,7 @@
 ---
 title: "퀀트 실전 ③ — 워크포워드 검증, 과거의 1등은 내일의 1등이 아니다"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: practice
 categories:
   - 퀀트투자
 tags:

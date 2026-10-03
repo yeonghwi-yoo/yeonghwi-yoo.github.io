@@ -1,6 +1,7 @@
 ---
 title: "퀀트 투자 입문 ⑭ — 밸류 팩터, 싼 주식은 정말 더 오르나"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: intro
 categories:
   - 퀀트투자
 tags:

@@ -1,6 +1,7 @@
 ---
 title: "퀀트 실전 ① — pykrx로 한국 종목 재무 데이터 받아오기"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: practice
 categories:
   - 파이썬
 tags:

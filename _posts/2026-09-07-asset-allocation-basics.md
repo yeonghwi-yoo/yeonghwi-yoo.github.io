@@ -1,6 +1,7 @@
 ---
 title: "퀀트 투자 입문 ⑪ — 자산 배분 기초: 주식과 채권을 섞는 이유"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: intro
 categories:
   - 퀀트투자
 tags:

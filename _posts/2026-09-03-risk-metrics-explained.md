@@ -1,6 +1,7 @@
 ---
 title: "퀀트 투자 입문 ⑧ — 위험 지표 완전 정복: 변동성, MDD, 샤프비율, 칼마비율"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: intro
 categories:
   - 퀀트투자
 tags:

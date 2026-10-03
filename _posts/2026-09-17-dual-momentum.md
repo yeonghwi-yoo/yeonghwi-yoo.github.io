@@ -1,6 +1,7 @@
 ---
 title: "퀀트 투자 입문 ⑲ — 듀얼 모멘텀, 상대와 절대를 결합하기"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: intro
 categories:
   - 퀀트투자
 tags:

@@ -1,6 +1,7 @@
 ---
 title: "퀀트 투자 입문 ⑱ — 멀티팩터, 팩터를 섞는 방법들"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: intro
 categories:
   - 퀀트투자
 tags:

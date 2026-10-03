@@ -1,6 +1,7 @@
 ---
 title: "퀀트 투자 입문 ⑮ — 퀄리티 팩터, 좋은 회사와 좋은 주식은 다르다"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: intro
 categories:
   - 퀀트투자
 tags:

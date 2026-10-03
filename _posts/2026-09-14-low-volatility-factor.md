@@ -1,6 +1,7 @@
 ---
 title: "퀀트 투자 입문 ⑯ — 저변동성 팩터, 덜 흔들리는 주식의 역설"
 last_modified_at: 2026-09-28 13:40:00 +0900
+series: intro
 categories:
   - 퀀트투자
 tags:

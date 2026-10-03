@@ -1,5 +1,6 @@
 ---
 title: "퀀트 실전 ⑧ — 추세추종과 손절 규칙, 손절은 정말 손실을 줄일까"
+series: practice
 categories:
   - 퀀트투자
 tags:
